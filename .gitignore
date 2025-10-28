@@ -1,0 +1,23 @@
+# Neovim
+*.swp
+*.swo
+*~
+
+# Lua
+luac.out
+
+# Documentation
+doc/tags
+
+# Testing
+.tests/
+
+# Editor
+.vscode/
+.idea/
+*.iml
+.nvimlog
+
+# OS
+.DS_Store
+Thumbs.db

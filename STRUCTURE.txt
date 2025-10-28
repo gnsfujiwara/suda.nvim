@@ -1,0 +1,29 @@
+.
+├── .editorconfig
+├── .gitignore
+├── .luacheckrc
+├── .luarc.json
+├── CHANGELOG.md
+├── LICENSE
+├── Makefile
+├── README.md
+├── STRUCTURE.txt
+├── doc
+│   └── suda.txt
+├── examples
+│   └── init.lua
+├── lua
+│   └── suda
+│       ├── config.lua
+│       ├── core.lua
+│       ├── health.lua
+│       ├── init.lua
+│       └── util.lua
+├── plugin
+│   └── suda.lua
+├── stylua.toml
+└── tests
+    ├── minimal_init.lua
+    └── suda_spec.lua
+
+6 directories, 20 files
