@@ -1,0 +1,168 @@
+*suda.txt*  Read and write files with sudo privileges
+
+==============================================================================
+CONTENTS                                                        *suda-contents*
+
+    1. Introduction ............................ |suda-introduction|
+    2. Requirements ............................ |suda-requirements|
+    3. Installation ............................ |suda-installation|
+    4. Configuration ........................... |suda-configuration|
+    5. Commands ................................ |suda-commands|
+    6. Protocol ................................ |suda-protocol|
+    7. API ..................................... |suda-api|
+    8. License ................................. |suda-license|
+
+==============================================================================
+1. INTRODUCTION                                             *suda-introduction*
+
+suda.nvim is a modern Neovim plugin that allows you to read and write files
+with sudo privileges. It provides a clean Lua API and follows modern Neovim
+plugin development practices.
+
+Features:
+  • Pure Lua implementation
+  • Custom `suda://` protocol
+  • Smart edit mode for automatic detection
+  • Health check integration
+  • Configurable elevation command and password strategy
+
+==============================================================================
+2. REQUIREMENTS                                             *suda-requirements*
+
+  • Neovim >= 0.8.0
+  • `sudo` command available on your system
+  • On Windows: mattn/sudo or gerardog/gsudo
+
+==============================================================================
+3. INSTALLATION                                             *suda-installation*
+
+Using lazy.nvim: >lua
+    {
+      "gnsfujiwara/suda.nvim",
+      event = "VeryLazy",
+      opts = {},
+    }
+<
+
+Using packer.nvim: >lua
+    use {
+      "gnsfujiwara/suda.nvim",
+      config = function()
+        require("suda").setup()
+      end,
+    }
+<
+
+==============================================================================
+4. CONFIGURATION                                           *suda-configuration*
+
+Setup function:                                                   *suda.setup()*
+>lua
+    require("suda").setup({
+      prompt = "Password: ",
+      smart_edit = false,
+      noninteractive = false,
+      command = nil,
+    })
+<
+
+Options:                                                          *suda-options*
+
+    prompt                                                    *suda.prompt*
+        Type: `string`
+        Default: `"Password: "`
+        
+        The prompt string displayed when asking for password.
+
+    smart_edit                                            *suda.smart_edit*
+        Type: `boolean`
+        Default: `false`
+        
+        Automatically switch to `suda://` protocol when opening files that
+        are not readable or writable.
+
+    noninteractive                                    *suda.noninteractive*
+        Type: `boolean`
+        Default: `false`
+        
+        Run the elevation command in noninteractive mode. For sudo this adds
+        `-n`, causing the write to fail immediately if a password would be
+        requested. Only enable this when your sudoers configuration allows
+        passwordless usage of the commands that suda.nvim executes.
+
+    command                                                  *suda.command*
+        Type: `string|nil`
+        Default: `nil`
+
+        Overrides the executable used for elevation. When left as `nil`, the
+        plugin tries to detect a suitable command automatically (such as
+        `sudo`, `sudo.exe`, or `gsudo`). Set this explicitly on platforms
+        where a different binary should be used.
+
+==============================================================================
+5. COMMANDS                                                     *suda-commands*
+
+:SudaRead [file]                                                  *:SudaRead*
+    Read a file with sudo privileges. If no file is specified, re-reads
+    the current file.
+
+    Examples: >vim
+        :SudaRead
+        :SudaRead /etc/hosts
+<
+
+:SudaWrite [file]                                                *:SudaWrite*
+    Write a file with sudo privileges. If no file is specified, writes
+    the current file.
+
+    Examples: >vim
+        :SudaWrite
+        :SudaWrite /etc/nginx/nginx.conf
+<
+
+==============================================================================
+6. PROTOCOL                                                     *suda-protocol*
+
+suda.nvim implements a custom `suda://` protocol for reading and writing
+files with sudo privileges.
+
+Usage: >vim
+    :edit suda:///etc/hosts
+    :write suda:///etc/profile
+<
+
+The protocol is automatically handled by the plugin through BufReadCmd and
+BufWriteCmd autocommands.
+
+==============================================================================
+7. API                                                               *suda-api*
+
+suda.setup({opts})                                               *suda.setup()*
+    Setup the plugin with the given options.
+    
+    Parameters: ~
+        {opts} (table|nil) Configuration options
+
+    See |suda-configuration| for available options.
+
+suda.read({path})                                                 *suda.read()*
+    Read a file with sudo privileges.
+    
+    Parameters: ~
+        {path} (string|nil) File path to read. If nil, re-reads current file.
+
+suda.write({path})                                               *suda.write()*
+    Write a file with sudo privileges.
+    
+    Parameters: ~
+        {path} (string|nil) File path to write. If nil, writes current file.
+
+==============================================================================
+8. LICENSE                                                       *suda-license*
+
+MIT License
+
+Copyright (c) 2025 gnsfujiwara
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:
