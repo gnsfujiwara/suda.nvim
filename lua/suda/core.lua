@@ -1,5 +1,5 @@
-local util = require("suda.util")
 local config = require("suda.config")
+local util = require("suda.util")
 
 local log = vim.log.levels
 local uv = vim.uv or vim.loop
@@ -241,10 +241,7 @@ function M.setup_smart_edit()
       if util.is_writable(path) then
         return
       end
-      util.notify(
-        ("suda.nvim: %s is not writable. Use :SudaWrite to save with sudo."):format(path),
-        log.WARN
-      )
+      util.notify(("suda.nvim: %s is not writable. Use :SudaWrite to save with sudo."):format(path), log.WARN)
     end,
   })
 end

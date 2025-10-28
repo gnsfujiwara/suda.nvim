@@ -27,7 +27,7 @@ describe("suda.nvim", function()
         prompt = "Test: ",
         smart_edit = true,
       })
-      
+
       local config = require("suda.config")
       assert.equals("Test: ", config.options.prompt)
       assert.is_true(config.options.smart_edit)

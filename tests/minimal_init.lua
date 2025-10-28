@@ -7,4 +7,3 @@ vim.opt.rtp:append(suda_dir)
 
 vim.cmd("runtime! plugin/plenary.vim")
 vim.cmd("runtime! plugin/suda.lua")
-
