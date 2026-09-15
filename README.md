@@ -1,3 +1,5 @@
+
+
 # suda.nvim
 
 `suda.nvim` lets you read and write files from Neovim using elevated privileges without leaving your current session. The plugin is inspired by [lambdalisue/vim-suda](https://github.com/lambdalisue/vim-suda), but is reimplemented in pure Lua with a structure similar to Folke's modern Neovim plugins.
@@ -163,6 +165,8 @@ make test
 ```
 
 The Makefile exports `PLENARY_DIR` for the test harness automatically.
+
+The test runner automatically uses `tests/minimal_init.lua`.
 
 ## Requirements
 
