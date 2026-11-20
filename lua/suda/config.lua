@@ -70,18 +70,10 @@ local function detect_command(preferred)
 end
 
 local function validate(options)
-  vim.validate({
-    prompt = { options.prompt, "string" },
-    smart_edit = { options.smart_edit, "boolean" },
-    noninteractive = { options.noninteractive, "boolean" },
-    command = {
-      options.command,
-      function(value)
-        return value == nil or type(value) == "string"
-      end,
-      "string or nil",
-    },
-  })
+  vim.validate("prompt", options.prompt, "string")
+  vim.validate("smart_edit", options.smart_edit, "boolean")
+  vim.validate("noninteractive", options.noninteractive, "boolean")
+  vim.validate("command", options.command, "string", true, "string or nil")
 end
 
 local function refresh_runtime()
